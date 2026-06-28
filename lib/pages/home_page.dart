@@ -5,7 +5,6 @@ import 'find_donor_page.dart';
 import 'profile_page.dart';
 import 'request_page.dart';
 import 'donation_history_page.dart';
-import 'chatbot_page.dart';
 import 'bloodbank_page.dart';
 
 void main() {
@@ -266,24 +265,7 @@ class _HomePageState extends State<HomePage>
   void _navigateToProfile() => _navigateTo(const ProfilePage());
   void _navigateToFindDonor() => _navigateTo(const FindDonorPage());
   void _navigateToRequest() => _navigateTo(const RequestPage());
-  void _navigateToChatbot() => _navigateTo(const ChatbotPage());
   void _navigateToBloodBanks() => _navigateTo(const BloodBankPage());
-
-  void _navigateToDonationHistory() => _navigateTo(
-        DonationHistoryPage(
-          donorProfile: DonorProfile(
-            name: 'Arjun Krishnan',
-            bloodType: 'O+',
-            area: 'Gandhipuram',
-            contact: '+91 98765 43210',
-            available: true,
-            registeredOn: DateTime(2023, 1, 1),
-          ),
-          onDonorRegistered: (updatedProfile) {
-            debugPrint('Donor profile updated: ${updatedProfile.name}');
-          },
-        ),
-      );
 
   void _navigateToAllUrgentRequests() =>
       _navigateTo(const AllUrgentRequestsPage());
@@ -369,103 +351,84 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _buildDonationStreak() {
-    return GestureDetector(
-      onTap: _navigateToDonationHistory,
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF8B0000), Color(0xFFD32F2F)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF8B0000), Color(0xFFD32F2F)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: kRed.withOpacity(0.35),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: kRed.withOpacity(0.35),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'YOUR IMPACT',
-                  style: TextStyle(
-                    color: Colors.white60,
-                    fontSize: 11,
-                    letterSpacing: 1.8,
-                    fontWeight: FontWeight.w700,
+        ],
+      ),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'YOUR IMPACT',
+                style: TextStyle(
+                  color: Colors.white60,
+                  fontSize: 11,
+                  letterSpacing: 1.8,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Text(
+                    '7',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 52,
+                      fontWeight: FontWeight.w900,
+                      height: 1,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Text(
-                      '7',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 52,
-                        fontWeight: FontWeight.w900,
-                        height: 1,
+                  const SizedBox(width: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Donations',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Donations',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          '≈ 21 lives saved',
-                          style: TextStyle(
-                              color: Colors.white.withOpacity(0.7),
-                              fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                _buildStreakDots(),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    const Icon(Icons.history_rounded,
-                        color: Colors.white60, size: 13),
-                    const SizedBox(width: 5),
-                    Text(
-                      'Tap to view full history →',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.6),
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
+                      Text(
+                        '≈ 21 lives saved',
+                        style: TextStyle(
+                            color: Colors.white.withOpacity(0.7),
+                            fontSize: 12),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const Spacer(),
-            Column(
-              children: [
-                _buildCircleStat('🔥', '3', 'Streak'),
-                const SizedBox(height: 12),
-                _buildCircleStat('⏳', '49d', 'Next ok'),
-              ],
-            ),
-          ],
-        ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              _buildStreakDots(),
+            ],
+          ),
+          const Spacer(),
+          Column(
+            children: [
+              _buildCircleStat('🔥', '3', 'Streak'),
+              const SizedBox(height: 12),
+              _buildCircleStat('⏳', '49d', 'Next ok'),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -662,8 +625,6 @@ class _HomePageState extends State<HomePage>
       _NavItem(icon: Icons.search_rounded, label: 'Find', onTap: _navigateToFindDonor),
       _NavItem(icon: Icons.bloodtype_rounded, label: 'Request', onTap: _navigateToRequest),
       _NavItem(icon: Icons.local_hospital_rounded, label: 'Blood Banks', onTap: _navigateToBloodBanks),
-      _NavItem(icon: Icons.history_rounded, label: 'History', onTap: _navigateToDonationHistory),
-      _NavItem(icon: Icons.smart_toy_rounded, label: 'Chat', onTap: _navigateToChatbot),
       _NavItem(icon: Icons.person_rounded, label: 'Profile', onTap: _navigateToProfile),
     ];
 
@@ -680,56 +641,57 @@ class _HomePageState extends State<HomePage>
           ),
         ],
       ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        child: Row(
-          children: List.generate(items.length, (i) {
-            final selected = _navIndex == i;
-            return GestureDetector(
-              onTap: () {
-                setState(() => _navIndex = i);
-                items[i].onTap();
-              },
-              behavior: HitTestBehavior.opaque,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-                margin: const EdgeInsets.symmetric(horizontal: 2),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: selected ? kRed : Colors.transparent,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      items[i].icon,
-                      color: selected ? Colors.white : kTextSoft,
-                      size: 22,
-                    ),
-                    if (selected) ...[
-                      const SizedBox(width: 6),
-                      Text(
-                        items[i].label,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(items.length, (i) {
+          final selected = _navIndex == i;
+          return GestureDetector(
+            onTap: () {
+              setState(() => _navIndex = i);
+              items[i].onTap();
+            },
+            behavior: HitTestBehavior.opaque,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              margin: const EdgeInsets.symmetric(horizontal: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: selected ? kRed : Colors.transparent,
+                borderRadius: BorderRadius.circular(20),
               ),
-            );
-          }),
-        ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    items[i].icon,
+                    color: selected ? Colors.white : kTextSoft,
+                    size: 22,
+                  ),
+                  if (selected) ...[
+                    const SizedBox(width: 6),
+                    Text(
+                      items[i].label,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          );
+        }),
       ),
     );
   }
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// All Urgent Requests Page
+// ──────────────────────────────────────────────────────────────────────────────
 
 class AllUrgentRequestsPage extends StatefulWidget {
   const AllUrgentRequestsPage({super.key});
@@ -1022,6 +984,10 @@ class _AllUrgentRequestsPageState extends State<AllUrgentRequestsPage> {
     );
   }
 }
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Supporting Widgets
+// ──────────────────────────────────────────────────────────────────────────────
 
 class _UrgentRequestListCard extends StatelessWidget {
   final UrgentRequest request;
